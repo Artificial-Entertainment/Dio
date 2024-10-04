@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bw10ly5gef3xh"]
+
+[node name="choice1" type="TextEdit"]
+text = "Choice Text"
+placeholder_text = "Choice Text"
+wrap_mode = 1
+scroll_fit_content_height = true

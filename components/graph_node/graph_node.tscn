@@ -1,0 +1,57 @@
+[gd_scene load_steps=4 format=3 uid="uid://01eg5agglma1"]
+
+[ext_resource type="Script" path="res://components/graph_node/source/graph_node.gd" id="1_hl6bj"]
+[ext_resource type="PackedScene" uid="uid://bw10ly5gef3xh" path="res://components/graph_node/subscenes/choice.tscn" id="2_7lprb"]
+[ext_resource type="PackedScene" uid="uid://6k8jsjj6oiby" path="res://components/graph_node/subscenes/add_remove_buttons.tscn" id="2_p1op4"]
+
+[node name="node1" type="GraphNode"]
+offset_right = 181.0
+offset_bottom = 214.0
+mouse_filter = 1
+position_offset = Vector2(200, 200)
+resizable = true
+title = "node1"
+slot/0/left_enabled = true
+slot/0/left_type = 0
+slot/0/left_color = Color(1, 1, 1, 1)
+slot/0/left_icon = null
+slot/0/right_enabled = true
+slot/0/right_type = 0
+slot/0/right_color = Color(1, 1, 1, 1)
+slot/0/right_icon = null
+slot/0/draw_stylebox = true
+slot/1/left_enabled = false
+slot/1/left_type = 0
+slot/1/left_color = Color(1, 1, 1, 1)
+slot/1/left_icon = null
+slot/1/right_enabled = false
+slot/1/right_type = 0
+slot/1/right_color = Color(1, 1, 1, 1)
+slot/1/right_icon = null
+slot/1/draw_stylebox = true
+slot/2/left_enabled = true
+slot/2/left_type = 0
+slot/2/left_color = Color(1, 1, 1, 1)
+slot/2/left_icon = null
+slot/2/right_enabled = true
+slot/2/right_type = 0
+slot/2/right_color = Color(1, 1, 1, 1)
+slot/2/right_icon = null
+slot/2/draw_stylebox = true
+script = ExtResource("1_hl6bj")
+
+[node name="dialogue" type="TextEdit" parent="."]
+layout_mode = 2
+text = "Response Text 
+can be as long as you'd like"
+placeholder_text = "type here"
+wrap_mode = 1
+scroll_fit_content_height = true
+
+[node name="addRemoveButtons" parent="." instance=ExtResource("2_p1op4")]
+layout_mode = 2
+
+[node name="choice0" parent="." instance=ExtResource("2_7lprb")]
+layout_mode = 2
+text = "Continue"
+placeholder_text = "Continue"

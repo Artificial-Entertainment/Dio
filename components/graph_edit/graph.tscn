@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cv7ri77tigouw"]
+
+[ext_resource type="Script" path="res://components/graph_edit/source/graph.gd" id="1_gk64f"]
+
+[node name="graph" type="GraphEdit"]
+grid_pattern = 1
+show_zoom_label = true
+show_arrange_button = false
+script = ExtResource("1_gk64f")

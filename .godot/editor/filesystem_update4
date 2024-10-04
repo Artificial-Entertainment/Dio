@@ -1,0 +1,7 @@
+res://main.tscn
+res://components/graph_node/subscenes/type_menu.tscn
+res://README.md
+res://components/graph_edit/subscenes/add_condition.tscn
+res://components/graph_node/source/graph_node.gd
+res://components/graph_node/graph_node.tscn
+res://components/graph_edit/source/graph.gd

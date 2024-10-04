@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://6k8jsjj6oiby"]
+
+[node name="addRemoveButtons" type="HBoxContainer"]
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="add" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="remove" type="Button" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"
