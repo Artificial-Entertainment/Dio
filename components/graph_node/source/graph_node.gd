@@ -2,6 +2,7 @@ extends GraphNode
 
 var _choice: PackedScene = preload("res://components/graph_node/subscenes/choice.tscn")
 var _count: int = -1
+var _id: int = 0
 
 const SLOT: int = 3 # because buttons are on slot 3
 
@@ -30,3 +31,10 @@ func slots(cond: bool) -> void:
 	set_slot_enabled_left(_count + SLOT, cond)
 	set_slot_enabled_right(_count + SLOT, cond)
 	return
+
+func set_id(id: int) -> void:
+	_id = id
+	return
+
+func get_id() -> int:
+	return _id
