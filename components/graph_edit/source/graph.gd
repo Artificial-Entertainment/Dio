@@ -47,11 +47,16 @@ func on_close(dialogueNode: GraphNode) -> void:
 
 func on_delete_request(nodes: Array[StringName]):
 	for n in nodes:
-		var node: GraphNode = get_node(NodePath(n))
+		var path: NodePath = NodePath(n)
+		var node: GraphNode = get_node(path)
 		on_close(node)
 	return
 
 func on_connection_request(from_node: StringName, from_port: int, to_node: StringName, to_port: int) -> void:
+	var connections: Array[Dictionary] = get_connection_list()
+	for connection in connections:
+		if connection["to_node"] == to_node and connection["to_port"] == to_port:
+			return # prevent stacking connections
 	connect_node(from_node, from_port, to_node, to_port)
 	return
 

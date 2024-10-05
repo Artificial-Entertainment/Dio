@@ -16,20 +16,15 @@ func on_add() -> void:
 	var choice: TextEdit = _choice.instantiate()
 	choice.set_name("choice%d" % _count)
 	add_child(choice)
-	slots(true)
+	set_slot_enabled_right(_count + SLOT, true)
 	return
 
 func on_remove() -> void:
 	if _count == -1:
 		return
 	get_node("choice%d" % _count).queue_free()
-	slots(false)
+	set_slot_enabled_right(_count + SLOT, false)
 	_count -= 1
-	return
-
-func slots(cond: bool) -> void:
-	set_slot_enabled_left(_count + SLOT, cond)
-	set_slot_enabled_right(_count + SLOT, cond)
 	return
 
 func set_id(id: int) -> void:
