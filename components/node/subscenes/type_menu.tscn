@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://be12bs783byw1"]
 
-[ext_resource type="Script" path="res://components/graph_node/source/type_menu.gd" id="1_ofawl"]
+[ext_resource type="Script" path="res://components/node/source/type_menu.gd" id="1_ofawl"]
 
 [node name="typeMenu" type="MenuButton"]
 offset_right = 45.0

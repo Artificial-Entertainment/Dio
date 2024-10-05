@@ -1,9 +1,9 @@
 extends GraphEdit
 
-var _addNodeButton: PackedScene = preload("res://components/graph_edit/subscenes/add_node.tscn")
-var _closeNodeButton: PackedScene = preload("res://components/graph_node/subscenes/close.tscn")
-var _graphNode: PackedScene = preload("res://components/graph_node/graph_node.tscn")
-var _vSep: PackedScene = preload("res://components/graph_edit/subscenes/vsep.tscn")
+var _addNodeButton: PackedScene = preload("res://components/graph/subscenes/add_node.tscn")
+var _closeNodeButton: PackedScene = preload("res://components/node/subscenes/close.tscn")
+var _graphNode: PackedScene = preload("res://components/node/node.tscn")
+var _vSep: PackedScene = preload("res://components/graph/subscenes/vsep.tscn")
 
 var _availableID: Array[int] = []
 var _count: int = 1

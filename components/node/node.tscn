@@ -1,10 +1,10 @@
 [gd_scene load_steps=4 format=3 uid="uid://01eg5agglma1"]
 
-[ext_resource type="Script" path="res://components/graph_node/source/graph_node.gd" id="1_hl6bj"]
-[ext_resource type="PackedScene" uid="uid://be12bs783byw1" path="res://components/graph_node/subscenes/type_menu.tscn" id="2_gix3t"]
-[ext_resource type="PackedScene" uid="uid://6k8jsjj6oiby" path="res://components/graph_node/subscenes/add_remove_buttons.tscn" id="2_p1op4"]
+[ext_resource type="Script" path="res://components/node/source/graph_node.gd" id="1_k5doe"]
+[ext_resource type="PackedScene" uid="uid://be12bs783byw1" path="res://components/node/subscenes/type_menu.tscn" id="2_4fj81"]
+[ext_resource type="PackedScene" uid="uid://6k8jsjj6oiby" path="res://components/node/subscenes/add_remove_buttons.tscn" id="3_gtfr4"]
 
-[node name="node1" type="GraphNode"]
+[node name="node" type="GraphNode"]
 offset_right = 181.0
 offset_bottom = 214.0
 mouse_filter = 1
@@ -38,9 +38,9 @@ slot/2/right_type = 0
 slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
-script = ExtResource("1_hl6bj")
+script = ExtResource("1_k5doe")
 
-[node name="typeMenu (notworking)" parent="." instance=ExtResource("2_gix3t")]
+[node name="typeMenu (notworking)" parent="." instance=ExtResource("2_4fj81")]
 layout_mode = 2
 
 [node name="dialogue" type="TextEdit" parent="."]
@@ -51,5 +51,5 @@ placeholder_text = "type here"
 wrap_mode = 1
 scroll_fit_content_height = true
 
-[node name="addRemoveButtons" parent="." instance=ExtResource("2_p1op4")]
+[node name="addRemoveButtons" parent="." instance=ExtResource("3_gtfr4")]
 layout_mode = 2

@@ -1,14 +1,19 @@
-[gd_scene load_steps=2 format=3 uid="uid://gypdwkhdrqr3"]
+[gd_scene load_steps=3 format=3 uid="uid://gypdwkhdrqr3"]
 
-[ext_resource type="PackedScene" uid="uid://cv7ri77tigouw" path="res://components/graph_edit/graph.tscn" id="1_tk6k5"]
+[ext_resource type="PackedScene" uid="uid://ks0gnriba34u" path="res://components/exporer/explorer.tscn" id="1_oi671"]
+[ext_resource type="PackedScene" uid="uid://cv7ri77tigouw" path="res://components/graph/graph.tscn" id="1_tk6k5"]
 
-[node name="main" type="PanelContainer"]
+[node name="main" type="HBoxContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="explorer" parent="." instance=ExtResource("1_oi671")]
+layout_mode = 2
+
 [node name="graph" parent="." instance=ExtResource("1_tk6k5")]
 layout_mode = 2
+scroll_offset = Vector2(-275, 0)
 right_disconnects = true
