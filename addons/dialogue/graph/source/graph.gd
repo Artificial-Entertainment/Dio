@@ -1,25 +1,36 @@
 @tool
 extends GraphEdit
 
+var _saveGraphButton: PackedScene = preload("res://addons/dialogue/graph/subscenes/save_graph.tscn")
 var _addNodeButton: PackedScene = preload("res://addons/dialogue/graph/subscenes/add_node.tscn")
 var _closeNodeButton: PackedScene = preload("res://addons/dialogue/node/subscenes/close.tscn")
-var _graphNode: PackedScene = preload("res://addons/dialogue/node/node.tscn")
 var _vSep: PackedScene = preload("res://addons/dialogue/graph/subscenes/vsep.tscn")
+var _graphNode: PackedScene = preload("res://addons/dialogue/node/node.tscn")
 
 var _availableID: Array[int] = []
 var _count: int = 1
 
 func _ready() -> void:
 	var menu: HBoxContainer = get_menu_hbox()
-	var btn: Button = _addNodeButton.instantiate()
+	var addBtn: Button = _addNodeButton.instantiate()
+	var saveBtn: Button = _saveGraphButton.instantiate()
 	var vsep: VSeparator = _vSep.instantiate()
-	for node in [vsep, btn]:
+	for node in [vsep, saveBtn, addBtn]:
 		menu.add_child(node)
 		menu.move_child(node, 0)
-	btn.connect("pressed", on_add)
+	addBtn.connect("pressed", on_add)
+	saveBtn.connect("pressed", on_save)
 	connect("disconnection_request", on_disconnection_request)
 	connect("connection_request", on_connection_request)
 	connect("delete_nodes_request", on_delete_request)
+	return
+
+func on_save() -> void:
+	var graph_state: GraphState = GraphState.new()
+	graph_state.collect_graph_state(self)
+	var err: Error = ResourceSaver.save(graph_state, "res://addons/dialogue/saves/save.res")
+	if err:
+		push_error(error_string(err))
 	return
 
 func on_add() -> void:
