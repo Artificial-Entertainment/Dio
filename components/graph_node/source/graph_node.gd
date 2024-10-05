@@ -1,15 +1,11 @@
 extends GraphNode
 
-var _closeButton: PackedScene = preload("res://components/graph_node/subscenes/close.tscn")
 var _choice: PackedScene = preload("res://components/graph_node/subscenes/choice.tscn")
-var _count: int = 0
-const SLOT: int = 2 # because buttons are on slot 2
+var _count: int = -1
+
+const SLOT: int = 3 # because buttons are on slot 3
 
 func _ready():
-	var titleBar: HBoxContainer = get_titlebar_hbox()
-	var closeButton: Button = _closeButton.instantiate()
-	titleBar.add_child(closeButton)
-	closeButton.connect("pressed", get_parent().on_close.bind(self))
 	get_node("addRemoveButtons/add").connect("pressed", on_add)
 	get_node("addRemoveButtons/remove").connect("pressed", on_remove)
 	return
@@ -23,7 +19,7 @@ func on_add() -> void:
 	return
 
 func on_remove() -> void:
-	if _count == 0:
+	if _count == -1:
 		return
 	get_node("choice%d" % _count).queue_free()
 	slots(false)
