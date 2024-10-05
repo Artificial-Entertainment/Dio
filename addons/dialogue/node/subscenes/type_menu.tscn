@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://be12bs783byw1"]
+
+[ext_resource type="Script" path="res://addons/dialogue/node/source/type_menu.gd" id="1_ofawl"]
+
+[node name="button" type="MenuButton"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "-- Dialogue --"
+flat = false
+item_count = 2
+popup/item_0/text = "-- Dialogue --"
+popup/item_0/checkable = 2
+popup/item_0/checked = true
+popup/item_1/text = "-- Condition --"
+popup/item_1/checkable = 2
+popup/item_1/id = 1
+script = ExtResource("1_ofawl")

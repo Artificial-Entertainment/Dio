@@ -1,3 +1,4 @@
+@tool
 extends MenuButton
 
 var _popup: PopupMenu = get_popup()
@@ -8,6 +9,8 @@ func _ready() -> void:
 	return
 
 func on_pressed(idx: int) -> void:
+	if idx == _prevIdx:
+		return
 	set_text(_popup.get_item_text(idx))
 	_popup.set_item_checked(idx, true)
 	_popup.set_item_checked(_prevIdx, false)

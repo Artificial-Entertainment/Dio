@@ -11,6 +11,10 @@ config_version=5
 [application]
 
 config/name="Dialogue"
-run/main_scene="res://main.tscn"
+run/main_scene="res://addons/dialogue/graph/graph.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/dialogue/plugin.cfg")

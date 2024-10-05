@@ -1,6 +1,7 @@
+@tool
 extends GraphNode
 
-var _choice: PackedScene = preload("res://components/node/subscenes/choice.tscn")
+var _choice: PackedScene = preload("res://addons/dialogue/node/subscenes/choice.tscn")
 var _count: int = -1
 var _id: int = 0
 
