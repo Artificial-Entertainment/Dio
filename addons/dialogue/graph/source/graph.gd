@@ -40,7 +40,7 @@ func on_load() -> void:
 	if graph_state == null:
 		push_error("Failed to load the graph state.")
 		return
-	graph_state.apply_graph_state(self, _graphNode)
+	graph_state.apply_graph_state(self)
 	return
 
 func add_graph_node(id: int, nodeName: String, position: Vector2) -> void:
