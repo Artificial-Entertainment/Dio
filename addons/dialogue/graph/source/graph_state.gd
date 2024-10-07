@@ -1,12 +1,12 @@
-@tool 
+@tool
 class_name GraphState extends Resource
 
 @export var _nodes: Array[Dictionary] = []
 @export var _connections: Array[Dictionary] = []
 
-func collect_graph_state(graphEdit: GraphEdit):
+func collect_graph_state(graph: GraphEdit) -> void:
 	_nodes.clear()
-	for node in graphEdit.get_children():
+	for node in graph.get_children():
 		if node is GraphNode:
 			var nodeInfo: Dictionary = {
 				"id": node.get_id(),
@@ -16,23 +16,23 @@ func collect_graph_state(graphEdit: GraphEdit):
 			_nodes.append(nodeInfo)
 
 	_connections.clear()
-	_connections = graphEdit.get_connection_list()
+	_connections = graph.get_connection_list()
 	return
 
-func apply_graph_state(graphEdit: GraphEdit):
-	for node in graphEdit.get_children():
+func apply_graph_state(graph: GraphEdit) -> void:
+	for node in graph.get_children():
 		if node is GraphNode:
-			graphEdit.remove_child(node)
+			graph.remove_child(node)
 			node.queue_free()
 
 	for nodeInfo in _nodes:
-		graphEdit.add_graph_node(
+		graph.add_graph_node(
 			nodeInfo["id"], nodeInfo["name"], 
 			nodeInfo["position"]
 		)
 
 	for connInfo in _connections:
-		graphEdit.connect_node(
+		graph.connect_node(
 			connInfo["from_node"], connInfo["from_port"],
 			connInfo["to_node"], connInfo["to_port"]
 		)

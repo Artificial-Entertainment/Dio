@@ -16,7 +16,7 @@ const FILE_PRESETS: Dictionary = {
 }
 
 func _ready() -> void:
-	file_selected.connect(process_file)
+	file_selected.connect(on_file_selected)
 	return
 
 func preset(type: String) -> void:
@@ -26,18 +26,25 @@ func preset(type: String) -> void:
 	popup_centered_ratio()
 	return
 
-func process_file(path: String) -> void:
-	var fileMode: int = get_file_mode()
-	if fileMode == FILE_MODE_SAVE_FILE:
-		var graph_state: GraphState = GraphState.new()
-		graph_state.collect_graph_state(_graph)
-		var err: Error = ResourceSaver.save(graph_state, path)
-		if err:
-			push_error(error_string(err))
-	elif fileMode == FILE_MODE_OPEN_FILE:
-		var graph_state: GraphState = ResourceLoader.load(path)
-		if graph_state == null:
-			push_error("Failed to load the graph state.")
-			return
-		graph_state.apply_graph_state(_graph)
+func on_file_selected(path: String) -> void:
+	if file_mode == FILE_MODE_SAVE_FILE:
+		process_save_file(path)
+	elif file_mode == FILE_MODE_OPEN_FILE:
+		process_open_file(path)
+	return
+
+func process_save_file(path: String) -> void:
+	var graphState: GraphState = GraphState.new()
+	graphState.collect_graph_state(_graph)
+	var err: Error = ResourceSaver.save(graphState, path)
+	if err != OK:
+		push_error("Error saving file: " + error_string(err))
+	return
+
+func process_open_file(path: String) -> void:
+	var graphState: GraphState = ResourceLoader.load(path)
+	if graphState == null:
+		push_error("Failed to load graph state from file: " + path)
+		return
+	graphState.apply_graph_state(_graph)
 	return

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/dialogue/node/source/graph_node.gd" id="1_k5doe"]
 [ext_resource type="Script" path="res://addons/dialogue/node/source/type_menu.gd" id="2_uhca2"]
 
-[node name="node" type="GraphNode" node_paths=PackedStringArray("_add", "_rem")]
+[node name="node" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton")]
 offset_right = 308.0
 offset_bottom = 216.0
 mouse_filter = 1
@@ -38,8 +38,8 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 script = ExtResource("1_k5doe")
-_add = NodePath("addRemoveButtons/add")
-_rem = NodePath("addRemoveButtons/remove")
+_addButton = NodePath("addRemoveButtons/add")
+_removeButton = NodePath("addRemoveButtons/remove")
 
 [node name="typeMenu" type="MenuButton" parent="."]
 layout_mode = 2

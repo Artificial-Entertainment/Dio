@@ -1,20 +1,19 @@
 @tool
 extends EditorPlugin
 
-var _packedScene: PackedScene = preload("res://addons/dialogue/graph/graph.tscn")
-var _pluginControl: Control = null
+var _graph: GraphEdit = null
 
 func _enter_tree() -> void:
-	_pluginControl = _packedScene.instantiate()
-	EditorInterface.get_editor_main_screen().add_child(_pluginControl)
-	_pluginControl.hide()
+	_graph = preload("res://addons/dialogue/graph/graph.tscn").instantiate()
+	EditorInterface.get_editor_main_screen().add_child(_graph)
+	_graph.hide()
 	return
 
 func _has_main_screen() -> bool:
 	return true
 
 func _make_visible(visible: bool) -> void:
-	_pluginControl.set_visible(visible)
+	_graph.set_visible(visible)
 	return
 
 func _get_plugin_name() -> String:
