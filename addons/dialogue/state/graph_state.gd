@@ -1,6 +1,5 @@
-@tool
-class_name GraphState
-extends Resource
+@tool 
+class_name GraphState extends Resource
 
 @export var _nodes: Array[Dictionary] = []
 @export var _connections: Array[Dictionary] = []

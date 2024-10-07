@@ -6,6 +6,7 @@ var _saveGraphButton: PackedScene = preload("res://addons/dialogue/graph/subscen
 var _addNodeButton: PackedScene = preload("res://addons/dialogue/graph/subscenes/add_node.tscn")
 var _vSep: PackedScene = preload("res://addons/dialogue/graph/subscenes/vsep.tscn")
 var _graphNode: PackedScene = preload("res://addons/dialogue/node/node.tscn")
+@export var _fileDialog: FileDialog
 
 var _availableID: Array[int] = []
 var _count: int = 1
@@ -16,31 +17,15 @@ func _ready() -> void:
 	var loadBtn: Button = _loadGraphButton.instantiate()
 	var vsep: VSeparator = _vSep.instantiate()
 	var menu: HBoxContainer = get_menu_hbox()
-	for node in [vsep, saveBtn, loadBtn, addBtn]:
+	for node in [vsep, loadBtn, saveBtn, addBtn]:
 		menu.add_child(node)
 		menu.move_child(node, 0)
 	addBtn.pressed.connect(on_add)
-	saveBtn.pressed.connect(on_save)
-	loadBtn.pressed.connect(on_load)
+	saveBtn.pressed.connect(_fileDialog.preset.bind("save"))
+	loadBtn.pressed.connect(_fileDialog.preset.bind("load"))
 	disconnection_request.connect(on_disconnection_request)
 	connection_request.connect(on_connection_request)
 	delete_nodes_request.connect(on_delete_request)
-	return
-
-func on_save() -> void:
-	var graph_state: GraphState = GraphState.new()
-	graph_state.collect_graph_state(self)
-	var err: Error = ResourceSaver.save(graph_state, "res://addons/dialogue/saves/save.res")
-	if err:
-		push_error(error_string(err))
-	return
-
-func on_load() -> void:
-	var graph_state: GraphState = ResourceLoader.load("res://addons/dialogue/saves/save.res")
-	if graph_state == null:
-		push_error("Failed to load the graph state.")
-		return
-	graph_state.apply_graph_state(self)
 	return
 
 func add_graph_node(id: int, nodeName: String, position: Vector2) -> void:
@@ -60,7 +45,7 @@ func on_add() -> void:
 		id = _count
 		_count += 1
 	var nodeName: String = "node%d" % id
-	add_graph_node(id, nodeName, Vector2())
+	add_graph_node(id, nodeName, Vector2.ZERO)
 	return
 
 func on_delete(dialogueNode: GraphNode) -> void:

@@ -2,7 +2,7 @@
 extends EditorPlugin
 
 var _packedScene: PackedScene = preload("res://addons/dialogue/graph/graph.tscn")
-var _pluginControl: GraphEdit = null
+var _pluginControl: Control = null
 
 func _enter_tree() -> void:
 	_pluginControl = _packedScene.instantiate()
