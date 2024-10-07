@@ -15,6 +15,7 @@ func collect_graph_state(graphEdit: GraphEdit):
 				"position": node.get_position_offset(),
 			}
 			_nodes.append(nodeInfo)
+
 	_connections.clear()
 	_connections = graphEdit.get_connection_list()
 	return
@@ -22,6 +23,7 @@ func collect_graph_state(graphEdit: GraphEdit):
 func apply_graph_state(graphEdit: GraphEdit):
 	for node in graphEdit.get_children():
 		if node is GraphNode:
+			graphEdit.remove_child(node)
 			node.queue_free()
 
 	for nodeInfo in _nodes:

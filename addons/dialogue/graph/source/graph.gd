@@ -22,9 +22,9 @@ func _ready() -> void:
 	addBtn.connect("pressed", on_add)
 	saveBtn.connect("pressed", on_save)
 	loadBtn.connect("pressed", on_load)
-	connect("disconnection_request", on_disconnection_request)
-	connect("connection_request", on_connection_request)
-	connect("delete_nodes_request", on_delete_request)
+	disconnection_request.connect(on_disconnection_request)
+	connection_request.connect(on_connection_request)
+	delete_nodes_request.connect(on_delete_request)
 	return
 
 func on_save() -> void:
