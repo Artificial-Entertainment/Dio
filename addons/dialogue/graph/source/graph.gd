@@ -11,17 +11,17 @@ var _availableID: Array[int] = []
 var _count: int = 1
 
 func _ready() -> void:
-	var menu: HBoxContainer = get_menu_hbox()
 	var addBtn: Button = _addNodeButton.instantiate()
 	var saveBtn: Button = _saveGraphButton.instantiate()
 	var loadBtn: Button = _loadGraphButton.instantiate()
 	var vsep: VSeparator = _vSep.instantiate()
+	var menu: HBoxContainer = get_menu_hbox()
 	for node in [vsep, saveBtn, loadBtn, addBtn]:
 		menu.add_child(node)
 		menu.move_child(node, 0)
-	addBtn.connect("pressed", on_add)
-	saveBtn.connect("pressed", on_save)
-	loadBtn.connect("pressed", on_load)
+	addBtn.pressed.connect(on_add)
+	saveBtn.pressed.connect(on_save)
+	loadBtn.pressed.connect(on_load)
 	disconnection_request.connect(on_disconnection_request)
 	connection_request.connect(on_connection_request)
 	delete_nodes_request.connect(on_delete_request)

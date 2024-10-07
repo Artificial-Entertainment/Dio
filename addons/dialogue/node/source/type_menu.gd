@@ -5,7 +5,7 @@ var _popup: PopupMenu = get_popup()
 var _prevIdx: int = 0
 
 func _ready() -> void:
-	_popup.connect("id_pressed", on_pressed)
+	_popup.id_pressed.connect(on_pressed)
 	return
 
 func on_pressed(idx: int) -> void:

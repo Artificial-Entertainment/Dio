@@ -1,10 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://01eg5agglma1"]
+[gd_scene load_steps=3 format=3 uid="uid://01eg5agglma1"]
 
 [ext_resource type="Script" path="res://addons/dialogue/node/source/graph_node.gd" id="1_k5doe"]
-[ext_resource type="PackedScene" uid="uid://be12bs783byw1" path="res://addons/dialogue/node/subscenes/type_menu.tscn" id="2_4fj81"]
-[ext_resource type="PackedScene" uid="uid://6k8jsjj6oiby" path="res://addons/dialogue/node/subscenes/add_remove_buttons.tscn" id="3_gtfr4"]
+[ext_resource type="Script" path="res://addons/dialogue/node/source/type_menu.gd" id="2_uhca2"]
 
-[node name="node" type="GraphNode"]
+[node name="node" type="GraphNode" node_paths=PackedStringArray("_add", "_rem")]
 offset_right = 308.0
 offset_bottom = 216.0
 mouse_filter = 1
@@ -39,9 +38,21 @@ slot/2/right_color = Color(1, 1, 1, 1)
 slot/2/right_icon = null
 slot/2/draw_stylebox = true
 script = ExtResource("1_k5doe")
+_add = NodePath("addRemoveButtons/add")
+_rem = NodePath("addRemoveButtons/remove")
 
-[node name="typeMenu" parent="." instance=ExtResource("2_4fj81")]
+[node name="typeMenu" type="MenuButton" parent="."]
 layout_mode = 2
+text = "-- Dialogue --"
+flat = false
+item_count = 2
+popup/item_0/text = "-- Dialogue --"
+popup/item_0/checkable = 2
+popup/item_0/checked = true
+popup/item_1/text = "-- Condition --"
+popup/item_1/checkable = 2
+popup/item_1/id = 1
+script = ExtResource("2_uhca2")
 
 [node name="dialogue" type="TextEdit" parent="."]
 layout_mode = 2
@@ -51,5 +62,17 @@ placeholder_text = "type here"
 wrap_mode = 1
 scroll_fit_content_height = true
 
-[node name="addRemoveButtons" parent="." instance=ExtResource("3_gtfr4")]
+[node name="addRemoveButtons" type="HBoxContainer" parent="."]
 layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="add" type="Button" parent="addRemoveButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Add"
+
+[node name="remove" type="Button" parent="addRemoveButtons"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Remove"

@@ -1,6 +1,9 @@
 @tool
 extends GraphNode
 
+@export var _add: Button
+@export var _rem: Button
+
 var _closeNodeButton: PackedScene = preload("res://addons/dialogue/node/subscenes/close.tscn")
 var _choice: PackedScene = preload("res://addons/dialogue/node/subscenes/choice.tscn")
 var _count: int = -1
@@ -8,14 +11,14 @@ var _id: int = 0
 
 const SLOT: int = 3 # because buttons are on slot 3
 
-func _ready():
-	get_node("addRemoveButtons/add").connect("pressed", on_add)
-	get_node("addRemoveButtons/remove").connect("pressed", on_remove)
+func _ready() -> void:
+	_add.pressed.connect(on_add)
+	_rem.pressed.connect(on_remove)
 	# adding 'X' top right
 	if get_parent() is GraphEdit:
 		var closeButton: Button = _closeNodeButton.instantiate()
 		get_titlebar_hbox().add_child(closeButton)
-		closeButton.connect("pressed", get_parent().on_delete.bind(self))
+		closeButton.pressed.connect(get_parent().on_delete.bind(self))
 	return
 
 func on_add() -> void:
@@ -29,7 +32,9 @@ func on_add() -> void:
 func on_remove() -> void:
 	if _count == -1:
 		return
-	get_node("choice%d" % _count).queue_free()
+	var choice = get_node("choice%d" % _count)
+	remove_child(choice)
+	choice.queue_free()
 	set_slot_enabled_right(_count + SLOT, false)
 	_count -= 1
 	return
