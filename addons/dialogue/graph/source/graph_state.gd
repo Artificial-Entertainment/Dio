@@ -1,6 +1,8 @@
 @tool
 class_name GraphState extends Resource
 
+@export var _nextID  = 1
+@export var _availableID: Array[int] = []
 @export var _nodes: Array[Dictionary] = []
 @export var _connections: Array[Dictionary] = []
 
@@ -17,6 +19,8 @@ func collect_graph_state(graph: GraphEdit) -> void:
 
 	_connections.clear()
 	_connections = graph.get_connection_list()
+	_nextID = graph.get_next_id()
+	_availableID = graph.get_id_array()
 	return
 
 func apply_graph_state(graph: GraphEdit) -> void:
@@ -36,4 +40,7 @@ func apply_graph_state(graph: GraphEdit) -> void:
 			connInfo["from_node"], connInfo["from_port"],
 			connInfo["to_node"], connInfo["to_port"]
 		)
+
+	graph.set_next_id(_nextID)
+	graph.set_id_array(_availableID)
 	return

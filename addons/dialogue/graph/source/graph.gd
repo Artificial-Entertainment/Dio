@@ -40,7 +40,7 @@ func add_graph_node(id: int, nodeName: String, pos: Vector2) -> void:
 func on_add() -> void:
 	var id: int = 0
 	if _availableID.size() > 0:
-		id = _availableID.pop_back()
+		id = _availableID.pop_front()
 	else:
 		id = _nextID
 		_nextID += 1
@@ -69,4 +69,18 @@ func on_connection_request(fNode: StringName, fPort: int, tNode: StringName, tPo
 
 func on_disconnection_request(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
 	disconnect_node(fNode, fPort, tNode, tPort)
+	return
+
+func get_id_array() -> Array[int]:
+	return _availableID
+
+func set_id_array(idArray: Array[int]) -> void:
+	_availableID = idArray
+	return
+
+func get_next_id() -> int:
+	return _nextID
+
+func set_next_id(nextID: int) -> void:
+	_nextID = nextID
 	return
