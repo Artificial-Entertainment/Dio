@@ -13,17 +13,16 @@ class_name GraphState extends Resource
 func get_dialogue() -> Dictionary:
 	var dialogue: Dictionary = {}
 	for node in _nodes:
-		dialogue[node["id"]] = {
+		dialogue[node["name"]] = {
 			"name": node["name"],
-			"text": "", # Assuming there's a text field in the node
+			"text": node["text"],
+			"choices": node["choices"],
 			"connections": []
 		}
-	
 	for connection in _connections:
-		var from_node = connection["from_node"]
-		var to_node = connection["to_node"]
+		var from_node: StringName = connection["from_node"]
+		var to_node: StringName = connection["to_node"]
 		dialogue[from_node]["connections"].append(to_node)
-	
 	return dialogue
 
 func collect_graph_state(graph: GraphEdit) -> void:

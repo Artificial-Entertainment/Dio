@@ -12,6 +12,7 @@ var _availableID: Array[int] = []
 var _nextID: int = 1
 
 func _ready() -> void:
+	assert(_fileDialog != null, "FileDialog is not set")
 	var addBtn: Button = ADD_NODE_BUTTON.instantiate()
 	var saveBtn: Button = SAVE_GRAPH_BUTTON.instantiate()
 	var loadBtn: Button = LOAD_GRAPH_BUTTON.instantiate()

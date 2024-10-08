@@ -1,12 +1,9 @@
-@tool
 extends RichTextLabel
 
-var graph_state: GraphState
+var dialogue: Dictionary
 
 func _ready() -> void:
-	graph_state = GraphState.new()
-	update_text()
-	return
-
-func update_text() -> void:
+	var graphState: GraphState = ResourceLoader.load("res://addons/dio/example/resource/example.res")
+	dialogue = graphState.get_dialogue()
+	print(dialogue)
 	return

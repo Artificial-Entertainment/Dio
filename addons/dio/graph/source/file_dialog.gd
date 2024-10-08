@@ -16,6 +16,7 @@ const FILE_PRESETS: Dictionary = {
 }
 
 func _ready() -> void:
+	assert(_graph != null, "GraphEdit is not set")
 	file_selected.connect(on_file_selected)
 	return
 

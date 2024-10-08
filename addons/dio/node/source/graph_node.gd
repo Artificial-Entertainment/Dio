@@ -2,8 +2,8 @@
 extends GraphNode
 
 @export var _addButton: Button
-@export var _removeButton: Button
 @export var _textEdit: TextEdit
+@export var _removeButton: Button
 
 const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
 const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
@@ -14,12 +14,9 @@ var _id: int = 0
 
 func _ready() -> void:
 	# assert exports
-	if _textEdit == null:
-		push_error("TextEdit is not set")
-	if _addButton == null:
-		push_error("AddButton is not set")
-	if _removeButton == null:
-		push_error("RemoveButton is not set")
+	assert(_textEdit != null, "TextEdit is not set")
+	assert(_addButton != null, "AddButton is not set")
+	assert(_removeButton != null, "RemoveButton is not set")
 	# adding/removing choices
 	_addButton.pressed.connect(add_choice)
 	_removeButton.pressed.connect(remove_choice)
