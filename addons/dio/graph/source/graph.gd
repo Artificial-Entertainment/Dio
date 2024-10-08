@@ -12,18 +12,23 @@ var _availableID: Array[int] = []
 var _nextID: int = 1
 
 func _ready() -> void:
+	# Assert that FileDialog is set
 	assert(_fileDialog != null, "FileDialog is not set")
-	var addBtn: Button = ADD_NODE_BUTTON.instantiate()
+	# Instantiate UI elements
 	var saveBtn: Button = SAVE_GRAPH_BUTTON.instantiate()
 	var loadBtn: Button = LOAD_GRAPH_BUTTON.instantiate()
+	var addBtn: Button = ADD_NODE_BUTTON.instantiate()
 	var vsep: VSeparator = V_SEP.instantiate()
 	var menu: HBoxContainer = get_menu_hbox()
+	# Add UI elements to the menu
 	for node in [vsep, loadBtn, saveBtn, addBtn]:
 		menu.add_child(node)
 		menu.move_child(node, 0)
+	# Connect button signals
 	addBtn.pressed.connect(on_add)
 	saveBtn.pressed.connect(_fileDialog.preset.bind("save"))
 	loadBtn.pressed.connect(_fileDialog.preset.bind("load"))
+	# Connect graph signals
 	disconnection_request.connect(on_disconnection_request)
 	connection_request.connect(on_connection_request)
 	delete_nodes_request.connect(on_delete_request)
@@ -32,12 +37,21 @@ func _ready() -> void:
 func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStringArray, pos: Vector2) -> void:
 	var dialogueNode: GraphNode = GRAPH_NODE.instantiate()
 	dialogueNode.set_id(id)
+	dialogueNode.set_text(text)
 	dialogueNode.set_name(nodeName)
 	dialogueNode.set_title(nodeName)
-	dialogueNode.set_text(text)
 	dialogueNode.set_choices(choices)
 	dialogueNode.set_position_offset(pos)
 	add_child(dialogueNode)
+	dialogueNode.choice_removed.connect(on_choice_removed)
+	return
+
+# Disconnect choice before removing it, prevent null pointer
+func on_choice_removed(node: GraphNode, port: int) -> void:
+	var connections: Array[Dictionary] = get_connection_list()
+	for conn in connections:
+		if conn["from_node"] == node.get_name() and conn["from_port"] == port:
+			disconnect_node(conn["from_node"], conn["from_port"], conn["to_node"], conn["to_port"])
 	return
 
 func on_add() -> void:

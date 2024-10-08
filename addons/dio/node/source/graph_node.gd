@@ -1,6 +1,8 @@
 @tool
 extends GraphNode
 
+signal choice_removed(node: GraphNode, port: int)
+
 @export var _addButton: Button
 @export var _textEdit: TextEdit
 @export var _removeButton: Button
@@ -40,6 +42,7 @@ func remove_choice() -> void:
 	if _choiceCount == -1:
 		return
 	var choice = get_node("choice%d" % _choiceCount)
+	choice_removed.emit(self, _choiceCount)
 	remove_child(choice)
 	choice.queue_free()
 	set_slot_enabled_right(_choiceCount + SLOT_OFFSET, false)
