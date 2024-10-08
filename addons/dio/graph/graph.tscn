@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cv7ri77tigouw"]
 
-[ext_resource type="Script" path="res://addons/dialogue/graph/source/graph.gd" id="1_6810e"]
-[ext_resource type="Script" path="res://addons/dialogue/graph/source/file_dialog.gd" id="2_mdc37"]
+[ext_resource type="Script" path="res://addons/dio/graph/source/graph.gd" id="1_6810e"]
+[ext_resource type="Script" path="res://addons/dio/graph/source/file_dialog.gd" id="2_mdc37"]
 
 [node name="graph" type="GraphEdit" node_paths=PackedStringArray("_fileDialog")]
 anchors_preset = 15

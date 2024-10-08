@@ -4,8 +4,8 @@ extends GraphNode
 @export var _addButton: Button
 @export var _removeButton: Button
 
-const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dialogue/node/subscenes/close.tscn")
-const CHOICE_SCENE: PackedScene = preload("res://addons/dialogue/node/subscenes/choice.tscn")
+const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
+const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
 const SLOT_OFFSET: int = 3  # Slot offset due to existing UI elements
 
 var _choiceCount: int = -1

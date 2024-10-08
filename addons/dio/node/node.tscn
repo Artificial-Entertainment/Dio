@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=3 uid="uid://01eg5agglma1"]
 
-[ext_resource type="Script" path="res://addons/dialogue/node/source/graph_node.gd" id="1_k5doe"]
-[ext_resource type="Script" path="res://addons/dialogue/node/source/type_menu.gd" id="2_uhca2"]
+[ext_resource type="Script" path="res://addons/dio/node/source/graph_node.gd" id="1_k5doe"]
+[ext_resource type="Script" path="res://addons/dio/node/source/type_menu.gd" id="2_uhca2"]
 
 [node name="node" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton")]
-offset_right = 308.0
-offset_bottom = 216.0
+offset_right = 264.0
+offset_bottom = 194.0
 mouse_filter = 1
 position_offset = Vector2(200, 200)
 resizable = true
@@ -56,9 +56,8 @@ script = ExtResource("2_uhca2")
 
 [node name="dialogue" type="TextEdit" parent="."]
 layout_mode = 2
-text = "Response Text 
-can be as long as you'd like"
-placeholder_text = "type here"
+text = "Response Text"
+placeholder_text = "Response Text"
 wrap_mode = 1
 scroll_fit_content_height = true
 

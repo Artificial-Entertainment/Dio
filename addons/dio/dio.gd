@@ -4,7 +4,7 @@ extends EditorPlugin
 var _graph: GraphEdit = null
 
 func _enter_tree() -> void:
-	_graph = preload("res://addons/dialogue/graph/graph.tscn").instantiate()
+	_graph = preload("res://addons/dio/graph/graph.tscn").instantiate()
 	EditorInterface.get_editor_main_screen().add_child(_graph)
 	_graph.hide()
 	return
@@ -17,7 +17,7 @@ func _make_visible(visible: bool) -> void:
 	return
 
 func _get_plugin_name() -> String:
-	return "Dialogue"
+	return "Dio"
 
 func _get_plugin_icon() -> Texture2D:
 	return EditorInterface.get_editor_theme().get_icon("Window", "EditorIcons")

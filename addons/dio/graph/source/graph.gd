@@ -1,11 +1,11 @@
 @tool
 extends GraphEdit
 
-const LOAD_GRAPH_BUTTON: PackedScene = preload("res://addons/dialogue/graph/subscenes/load_graph.tscn")
-const SAVE_GRAPH_BUTTON: PackedScene = preload("res://addons/dialogue/graph/subscenes/save_graph.tscn")
-const ADD_NODE_BUTTON: PackedScene = preload("res://addons/dialogue/graph/subscenes/add_node.tscn")
-const V_SEP: PackedScene = preload("res://addons/dialogue/graph/subscenes/vsep.tscn")
-const GRAPH_NODE: PackedScene = preload("res://addons/dialogue/node/node.tscn")
+const LOAD_GRAPH_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/load_graph.tscn")
+const SAVE_GRAPH_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/save_graph.tscn")
+const ADD_NODE_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/add_node.tscn")
+const V_SEP: PackedScene = preload("res://addons/dio/graph/subscenes/vsep.tscn")
+const GRAPH_NODE: PackedScene = preload("res://addons/dio/node/node.tscn")
 @export var _fileDialog: FileDialog
 
 var _availableID: Array[int] = []
