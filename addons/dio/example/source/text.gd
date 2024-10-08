@@ -17,8 +17,8 @@ func show_dialogue(nodeId: String) -> void:
 	var node: Dictionary = _dialogue[nodeId]
 	append_text("[b]%s[/b]\n" % node["name"])
 	append_text("%s\n\n" % node["text"])
-	var numChoices: int = node["choices"].size()
 	var choices: PackedStringArray = node["choices"]
+	var numChoices: int = choices.size()
 	var cons: Array = node["connections"]
 	if numChoices == 0:
 		if cons.size() > 0:
