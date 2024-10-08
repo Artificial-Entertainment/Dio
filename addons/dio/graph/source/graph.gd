@@ -28,11 +28,13 @@ func _ready() -> void:
 	delete_nodes_request.connect(on_delete_request)
 	return
 
-func add_graph_node(id: int, nodeName: String, pos: Vector2) -> void:
+func add_graph_node(id: int, nodeName: String, text: String, choices: Array, pos: Vector2) -> void:
 	var dialogueNode: GraphNode = GRAPH_NODE.instantiate()
 	dialogueNode.set_id(id)
 	dialogueNode.set_name(nodeName)
 	dialogueNode.set_title(nodeName)
+	dialogueNode.set_text(text)
+	dialogueNode.set_choices(choices)
 	dialogueNode.set_position_offset(pos)
 	add_child(dialogueNode)
 	return
@@ -44,8 +46,7 @@ func on_add() -> void:
 	else:
 		id = _nextID
 		_nextID += 1
-	var nodeName: String = "node%d" % id
-	add_graph_node(id, nodeName, Vector2.ZERO)
+	add_graph_node(id, "node%d" % id, "Response Text", [], Vector2.ZERO)
 	return
 
 func on_delete(dialogueNode: GraphNode) -> void:
@@ -53,17 +54,12 @@ func on_delete(dialogueNode: GraphNode) -> void:
 	dialogueNode.queue_free()
 	return
 
-
 func on_delete_request(nodes: Array[StringName]):
 	for n in nodes:
 		on_delete(get_node(NodePath(n)))
 	return
 
 func on_connection_request(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
-	var connections: Array[Dictionary] = get_connection_list()
-	for connection in connections:
-		if connection["to_node"] == tNode and connection["to_port"] == tPort:
-			return # prevent stacking connections
 	connect_node(fNode, fPort, tNode, tPort)
 	return
 

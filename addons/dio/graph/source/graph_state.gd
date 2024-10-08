@@ -1,10 +1,30 @@
 @tool
 class_name GraphState extends Resource
 
-@export var _nextID  = 1
+## The next available ID for new nodes
+@export var _nextID: int = 1
+## Array of IDs that have become available due to node deletion
 @export var _availableID: Array[int] = []
+## Array of dictionaries containing information about each node in the graph
 @export var _nodes: Array[Dictionary] = []
+## Array of dictionaries containing information about connections between nodes
 @export var _connections: Array[Dictionary] = []
+
+func get_dialogue() -> Dictionary:
+	var dialogue: Dictionary = {}
+	for node in _nodes:
+		dialogue[node["id"]] = {
+			"name": node["name"],
+			"text": "", # Assuming there's a text field in the node
+			"connections": []
+		}
+	
+	for connection in _connections:
+		var from_node = connection["from_node"]
+		var to_node = connection["to_node"]
+		dialogue[from_node]["connections"].append(to_node)
+	
+	return dialogue
 
 func collect_graph_state(graph: GraphEdit) -> void:
 	_nodes.clear()
@@ -13,10 +33,12 @@ func collect_graph_state(graph: GraphEdit) -> void:
 			var nodeInfo: Dictionary = {
 				"id": node.get_id(),
 				"name": node.get_name(),
+				"text": node.get_text(),
+				"choices": node.get_choices(),
 				"position": node.get_position_offset(),
 			}
 			_nodes.append(nodeInfo)
-
+	print(_nodes)
 	_connections.clear()
 	_connections = graph.get_connection_list()
 	_nextID = graph.get_next_id()
@@ -31,8 +53,8 @@ func apply_graph_state(graph: GraphEdit) -> void:
 
 	for nodeInfo in _nodes:
 		graph.add_graph_node(
-			nodeInfo["id"], nodeInfo["name"], 
-			nodeInfo["position"]
+			nodeInfo["id"], nodeInfo["name"], nodeInfo["text"], 
+			nodeInfo["choices"], nodeInfo["position"],
 		)
 
 	for connInfo in _connections:

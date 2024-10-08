@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/dio/node/source/graph_node.gd" id="1_k5doe"]
 [ext_resource type="Script" path="res://addons/dio/node/source/type_menu.gd" id="2_uhca2"]
 
-[node name="node" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton")]
+[node name="node" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton", "_textEdit")]
 offset_right = 264.0
 offset_bottom = 194.0
 mouse_filter = 1
@@ -40,6 +40,7 @@ slot/2/draw_stylebox = true
 script = ExtResource("1_k5doe")
 _addButton = NodePath("addRemoveButtons/add")
 _removeButton = NodePath("addRemoveButtons/remove")
+_textEdit = NodePath("dialogue")
 
 [node name="typeMenu" type="MenuButton" parent="."]
 layout_mode = 2
