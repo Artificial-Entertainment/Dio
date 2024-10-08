@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://01eg5agglma1"]
+[gd_scene load_steps=3 format=3 uid="uid://2mdmkr3gikqt"]
 
 [ext_resource type="Script" path="res://addons/dio/node/source/graph_node.gd" id="1_k5doe"]
 [ext_resource type="Script" path="res://addons/dio/node/source/type_menu.gd" id="2_uhca2"]
 
-[node name="node" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton", "_textEdit")]
+[node name="graphNode" type="GraphNode" node_paths=PackedStringArray("_addButton", "_removeButton", "_textEdit")]
 offset_right = 264.0
 offset_bottom = 194.0
 mouse_filter = 1

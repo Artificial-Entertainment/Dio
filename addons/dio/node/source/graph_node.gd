@@ -63,13 +63,14 @@ func set_text(new_text: String) -> void:
 	_textEdit.set_text(new_text)
 	return
 
-func get_choices() -> Array[String]:
-	var choices: Array[String] = []
+func get_choices() -> PackedStringArray:
+	var choices: PackedStringArray = []
 	for i in range(SLOT_OFFSET, get_child_count()):
-		choices.append(get_child(i).get_text())
+		var text = get_child(i).get_text()
+		choices.append(text)
 	return choices
 
-func set_choices(new_choices: Array) -> void:
+func set_choices(new_choices: PackedStringArray) -> void:
 	for choice in new_choices:
 		add_choice(choice)
 	return

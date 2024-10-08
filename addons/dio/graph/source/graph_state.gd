@@ -52,9 +52,10 @@ func apply_graph_state(graph: GraphEdit) -> void:
 			node.queue_free()
 
 	for nodeInfo in _nodes:
+		print(nodeInfo["choices"])
 		graph.add_graph_node(
 			nodeInfo["id"], nodeInfo["name"], nodeInfo["text"], 
-			nodeInfo["choices"], nodeInfo["position"],
+			nodeInfo["choices"] as PackedStringArray, nodeInfo["position"],
 		)
 
 	for connInfo in _connections:

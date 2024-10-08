@@ -5,7 +5,7 @@ const LOAD_GRAPH_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes
 const SAVE_GRAPH_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/save_graph.tscn")
 const ADD_NODE_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/add_node.tscn")
 const V_SEP: PackedScene = preload("res://addons/dio/graph/subscenes/vsep.tscn")
-const GRAPH_NODE: PackedScene = preload("res://addons/dio/node/node.tscn")
+const GRAPH_NODE: PackedScene = preload("res://addons/dio/node/graph_node.tscn")
 @export var _fileDialog: FileDialog
 
 var _availableID: Array[int] = []
@@ -28,7 +28,7 @@ func _ready() -> void:
 	delete_nodes_request.connect(on_delete_request)
 	return
 
-func add_graph_node(id: int, nodeName: String, text: String, choices: Array, pos: Vector2) -> void:
+func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStringArray, pos: Vector2) -> void:
 	var dialogueNode: GraphNode = GRAPH_NODE.instantiate()
 	dialogueNode.set_id(id)
 	dialogueNode.set_name(nodeName)
