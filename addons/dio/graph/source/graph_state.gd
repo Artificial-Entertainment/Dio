@@ -37,7 +37,6 @@ func collect_graph_state(graph: GraphEdit) -> void:
 				"position": node.get_position_offset(),
 			}
 			_nodes.append(nodeInfo)
-	print(_nodes)
 	_connections.clear()
 	_connections = graph.get_connection_list()
 	_nextID = graph.get_next_id()
@@ -51,7 +50,6 @@ func apply_graph_state(graph: GraphEdit) -> void:
 			node.queue_free()
 
 	for nodeInfo in _nodes:
-		print(nodeInfo["choices"])
 		graph.add_graph_node(
 			nodeInfo["id"], nodeInfo["name"], nodeInfo["text"], 
 			nodeInfo["choices"] as PackedStringArray, nodeInfo["position"],

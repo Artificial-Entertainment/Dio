@@ -39,6 +39,6 @@ theme_override_constants/margin_bottom = 8
 [node name="text" type="RichTextLabel" parent="panle/margin"]
 layout_mode = 2
 bbcode_enabled = true
-text = "This is where the dialogue goes "
+text = "This is where the dialogue goes"
 scroll_following = true
 script = ExtResource("1_xvtqa")
