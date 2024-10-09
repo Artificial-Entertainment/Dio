@@ -18,8 +18,8 @@ func _ready() -> void:
 	return
 
 func show_dialogue(nodeId: String) -> void:
-	_richLabel.set_text("")
 	var node: Dictionary = _dialogue[nodeId]
+	_richLabel.set_text("")
 	_richLabel.append_text("[b]%s[/b]\n" % node["name"])
 	_richLabel.append_text("%s\n\n" % node["text"])
 	show_options(node["choices"], node["connections"])
