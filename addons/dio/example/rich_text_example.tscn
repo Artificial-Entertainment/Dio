@@ -1,0 +1,44 @@
+[gd_scene load_steps=2 format=3 uid="uid://d32d7hpgw6w08"]
+
+[ext_resource type="Script" path="res://addons/dio/example/source/rich_text_example.gd" id="1_ke87o"]
+
+[node name="richTextExample" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="panle" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -231.0
+offset_top = -152.0
+offset_right = 231.0
+offset_bottom = 152.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="margin" type="MarginContainer" parent="panle"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="richLabel" type="RichTextLabel" parent="panle/margin"]
+layout_mode = 2
+bbcode_enabled = true
+text = "This is where the dialogue goes "
+scroll_following = true
+script = ExtResource("1_ke87o")
