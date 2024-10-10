@@ -43,12 +43,12 @@ func process_save_file(path: String) -> void:
 	return
 
 func process_open_file(path: String) -> void:
-	var graphState: GraphState = ResourceLoader.load(path)
-	if graphState == null:
-		push_error("Failed to load graph state from file: " + path)
+	var resource: Resource = ResourceLoader.load(path)
+	if resource == null:
+		push_error("Failed to load resource from file: " + path)
 		return
-	elif graphState is not GraphState:
+	if not resource is GraphState:
 		push_error("Loaded resource is not a GraphState: " + path)
 		return
-	graphState.apply_graph_state(_graph)
+	resource.apply_graph_state(_graph)
 	return
