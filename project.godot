@@ -15,6 +15,10 @@ run/main_scene="res://addons/dio/example/button_example.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/exclude_addons=false
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dio/plugin.cfg")

@@ -13,7 +13,7 @@ func _ready() -> void:
 	# signals
 	for i in range(get_child_count()):
 		var child: Button = get_child(i)
-		child.pressed.connect(on_pressed.bind(child, i))
+		child.pressed.connect(on_pressed.bind(i))
 	show_dialogue(_currentNode)
 	return
 
@@ -50,7 +50,7 @@ func hide_options() -> void:
 		child.hide()
 	return
 
-func on_pressed(button: Button, i: int) -> void:
+func on_pressed(i: int) -> void:
 	var connections: Array = _dialogue[_currentNode]["connections"]
 	hide_options()
 	if connections.is_empty():
