@@ -35,10 +35,10 @@ func _ready() -> void:
 	return
 
 # Drag and drop GraphState
-func _can_drop_data(position: Vector2, data: Variant) -> bool:
+func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 	return typeof(data) == TYPE_DICTIONARY and data.has("files")
 
-func _drop_data(pos: Vector2, data: Variant) -> void:
+func _drop_data(_pos: Vector2, data: Variant) -> void:
 	if data.files.size() > 0:
 		_fileDialog.process_open_file(data.files[0])
 	return
