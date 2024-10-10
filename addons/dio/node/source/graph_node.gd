@@ -42,10 +42,11 @@ func remove_choice() -> void:
 	if _choiceCount == -1:
 		return
 	var choice = get_node("choice%d" % _choiceCount)
-	choice_removed.emit(self, _choiceCount)
+	var choiceSlot: int = _choiceCount + SLOT_OFFSET
+	choice_removed.emit(self, choiceSlot)
 	remove_child(choice)
 	choice.queue_free()
-	set_slot_enabled_right(_choiceCount + SLOT_OFFSET, false)
+	set_slot_enabled_right(choiceSlot, false)
 	_choiceCount -= 1
 	return
 
