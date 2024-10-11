@@ -6,10 +6,11 @@ const SAVE_GRAPH_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes
 const ADD_NODE_BUTTON: PackedScene = preload("res://addons/dio/graph/subscenes/add_node.tscn")
 const V_SEP: PackedScene = preload("res://addons/dio/graph/subscenes/vsep.tscn")
 const GRAPH_NODE: PackedScene = preload("res://addons/dio/node/graph_node.tscn")
+const GRAPH_NODE_SIZE_Y: float = 200.0 # rought estimate, but mostly true
 @export var _fileDialog: FileDialog
 
 var _availableID: Array[int] = []
-var _nextID: int = 1
+var _nextID: int = 0
 
 func _ready() -> void:
 	# Assert that FileDialog is set
@@ -29,9 +30,10 @@ func _ready() -> void:
 	saveBtn.pressed.connect(_fileDialog.preset.bind("save"))
 	loadBtn.pressed.connect(_fileDialog.preset.bind("load"))
 	# Connect graph signals
-	disconnection_request.connect(on_disconnection_request)
-	connection_request.connect(on_connection_request)
-	delete_nodes_request.connect(on_delete_request)
+	disconnection_request.connect(on_disconnection)
+	connection_request.connect(on_connection)
+	delete_nodes_request.connect(on_delete)
+	connection_to_empty.connect(on_empty)
 	return
 
 # Drag and drop GraphState
@@ -65,30 +67,32 @@ func on_choice_removed(node: GraphNode, port: int) -> void:
 	return
 
 func on_add() -> void:
-	var id: int = 0
-	if _availableID.size() > 0:
-		id = _availableID.pop_front()
-	else:
-		id = _nextID
-		_nextID += 1
-	add_graph_node(id, "node%d" % id, "Response Text", [], Vector2.ZERO)
+	var id: int = get_next_id()
+	var pos: Vector2 = Vector2.ONE * (id % 10 + 1) * 10
+	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
 	return
 
-func on_delete(dialogueNode: GraphNode) -> void:
-	_availableID.append(dialogueNode.get_id())
-	dialogueNode.queue_free()
+func on_empty(fNode: StringName, fPort: int, pos: Vector2) -> void:
+	var id: int = get_next_id()
+	var nodeSize: Vector2 = Vector2.UP * GRAPH_NODE_SIZE_Y / 2.0
+	pos += get_scroll_offset() + nodeSize
+	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
+	connect_node(fNode, fPort, "node%d" % id, 0)
 	return
 
-func on_delete_request(nodes: Array[StringName]):
+func on_delete(nodes: Array[StringName]):
 	for n in nodes:
-		on_delete(get_node(NodePath(n)))
+		var dialogueNode: GraphNode = get_node(NodePath(n))
+		_availableID.append(dialogueNode.get_id())
+		dialogueNode.queue_free()
+	_availableID.sort()
 	return
 
-func on_connection_request(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
+func on_connection(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
 	connect_node(fNode, fPort, tNode, tPort)
 	return
 
-func on_disconnection_request(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
+func on_disconnection(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
 	disconnect_node(fNode, fPort, tNode, tPort)
 	return
 
@@ -100,7 +104,11 @@ func set_id_array(idArray: Array[int]) -> void:
 	return
 
 func get_next_id() -> int:
-	return _nextID
+	if _availableID.size() > 0:
+		return _availableID.pop_front()
+	else:
+		_nextID += 1
+		return _nextID
 
 func set_next_id(nextID: int) -> void:
 	_nextID = nextID

@@ -2,7 +2,7 @@
 class_name GraphState extends Resource
 
 ## The next available ID for new nodes
-@export var _nextID: int = 1
+@export var _nextID: int = 0
 ## Array of IDs that have become available due to node deletion
 @export var _availableID: Array[int] = []
 ## Array of dictionaries containing information about each node in the graph

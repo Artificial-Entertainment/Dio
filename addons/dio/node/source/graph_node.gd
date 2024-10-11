@@ -19,14 +19,16 @@ func _ready() -> void:
 	assert(_textEdit != null, "TextEdit is not set")
 	assert(_addButton != null, "AddButton is not set")
 	assert(_removeButton != null, "RemoveButton is not set")
+	var parent: Node = get_parent() # assume we do not know parent type
+	assert(parent is GraphEdit, "GraphNode must be a child of GraphEdit")
 	# adding/removing choices
 	_addButton.pressed.connect(add_choice)
 	_removeButton.pressed.connect(remove_choice)
 	# adding 'X' button top right
-	if get_parent() is GraphEdit:
-		var close_button: Button = CLOSE_BUTTON_SCENE.instantiate()
-		get_titlebar_hbox().add_child(close_button)
-		close_button.pressed.connect(get_parent().on_delete.bind(self))
+	var close_button: Button = CLOSE_BUTTON_SCENE.instantiate()
+	get_titlebar_hbox().add_child(close_button)
+	var n: Array[StringName] = [StringName(get_name())]
+	close_button.pressed.connect(parent.on_delete.bind(n))
 	return
 
 func add_choice(text: String = "New Choice") -> void:
