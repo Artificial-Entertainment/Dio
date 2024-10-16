@@ -1,2 +1,2 @@
 # Dialogue
-A dialogue creation tool addon for [Godot](www.godotengine.org). 
+A dialogue creation addon for [Godot](www.godotengine.org). 
