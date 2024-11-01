@@ -10,7 +10,7 @@ const GRAPH_NODE_SIZE_Y: float = 200.0 # rought estimate, but mostly true
 @export var _fileDialog: FileDialog
 
 var _availableID: Array[int] = []
-var _nextID: int = 0
+var _currentID: int = 0
 
 func _ready() -> void:
 	# Assert that FileDialog is set
@@ -69,13 +69,13 @@ func on_choice_removed(node: GraphNode, port: int) -> void:
 	return
 
 func on_add() -> void:
-	var id: int = get_next_id()
+	var id: int = get_current_id()
 	var pos: Vector2 = Vector2.ONE * (id % 10 + 1) * 10
 	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
 	return
 
 func on_empty(fNode: StringName, fPort: int, pos: Vector2) -> void:
-	var id: int = get_next_id()
+	var id: int = get_current_id()
 	var nodeSize: Vector2 = Vector2.UP * GRAPH_NODE_SIZE_Y / 2.0
 	pos += get_scroll_offset() + nodeSize
 	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
@@ -85,9 +85,12 @@ func on_empty(fNode: StringName, fPort: int, pos: Vector2) -> void:
 func on_delete(nodes: Array[StringName]):
 	for n in nodes:
 		var dialogueNode: GraphNode = get_node(NodePath(n))
-		_availableID.append(dialogueNode.get_id())
+		var nodeID: int = dialogueNode.get_id()
+		if _currentID != nodeID:
+			_availableID.append(nodeID)
+		else:
+			_currentID -= 1
 		dialogueNode.queue_free()
-	_availableID.sort()
 	return
 
 func on_connection(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
@@ -105,13 +108,13 @@ func set_id_array(idArray: Array[int]) -> void:
 	_availableID = idArray
 	return
 
-func get_next_id() -> int:
+func get_current_id() -> int:
 	if _availableID.size() > 0:
 		return _availableID.pop_front()
 	else:
-		_nextID += 1
-		return _nextID
+		_currentID += 1
+		return _currentID
 
-func set_next_id(nextID: int) -> void:
-	_nextID = nextID
+func set_current_id(currentID: int) -> void:
+	_currentID = currentID
 	return

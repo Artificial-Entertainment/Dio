@@ -2,7 +2,7 @@
 class_name GraphState extends Resource
 
 ## The next available ID for new nodes
-@export var _nextID: int = 0
+@export var _currentID: int = 0
 ## Array of IDs that have become available due to node deletion
 @export var _availableID: Array[int] = []
 ## Array of dictionaries containing information about each node in the graph
@@ -39,7 +39,7 @@ func collect_graph_state(graph: GraphEdit) -> void:
 			_nodes.append(nodeInfo)
 	_connections.clear()
 	_connections = graph.get_connection_list()
-	_nextID = graph.get_next_id()
+	_currentID = graph.get_current_id()
 	_availableID = graph.get_id_array()
 	return
 
@@ -61,6 +61,6 @@ func apply_graph_state(graph: GraphEdit) -> void:
 			connInfo["to_node"], connInfo["to_port"]
 		)
 
-	graph.set_next_id(_nextID)
+	graph.set_current_id(_currentID)
 	graph.set_id_array(_availableID)
 	return
