@@ -58,6 +58,9 @@ func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStri
 	dialogueNode.set_position_offset(pos)
 	add_child(dialogueNode)
 	dialogueNode.choice_removed.connect(on_choice_removed)
+	var n: Array[StringName] = [StringName(nodeName)]
+	var closeButton: Button = dialogueNode.get_close_button()
+	closeButton.pressed.connect(on_delete.bind(n))
 	return
 
 # Disconnect choice before removing it, prevent null pointer
