@@ -34,6 +34,8 @@ func _ready() -> void:
 	connection_request.connect(on_connection)
 	delete_nodes_request.connect(on_delete)
 	connection_to_empty.connect(on_empty)
+	# Based on doc recommendations
+	OS.set_low_processor_usage_mode(true)
 	return
 
 # Drag and drop GraphState
