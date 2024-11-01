@@ -10,6 +10,7 @@ signal choice_removed(node: GraphNode, port: int)
 const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
 const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
 const SLOT_OFFSET: int = 2 # Offset from other UI elements
+const CHOICE_SIZE: Vector2 = Vector2(0, 35)
 
 var _choiceCount: int = 1
 var _id: int = 0
@@ -51,6 +52,8 @@ func remove_choice() -> void:
 	choice.queue_free()
 	set_slot_enabled_right(choiceSlot, false)
 	_choiceCount -= 1
+	# fixing weird panel size issue
+	set_size(get_size() - CHOICE_SIZE)
 	return
 
 func get_id() -> int:
