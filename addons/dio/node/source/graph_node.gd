@@ -9,9 +9,9 @@ signal choice_removed(node: GraphNode, port: int)
 
 const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
 const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
-const SLOT_OFFSET: int = 3  # Slot offset due to existing UI elements
+const SLOT_OFFSET: int = 2 # Offset from other UI elements
 
-var _choiceCount: int = -1
+var _choiceCount: int = 1
 var _id: int = 0
 
 func _ready() -> void:
@@ -27,6 +27,7 @@ func _ready() -> void:
 	# adding 'X' button top right
 	var close_button: Button = CLOSE_BUTTON_SCENE.instantiate()
 	get_titlebar_hbox().add_child(close_button)
+	# a bit ugly but works
 	var n: Array[StringName] = [StringName(get_name())]
 	close_button.pressed.connect(parent.on_delete.bind(n))
 	return
@@ -41,9 +42,9 @@ func add_choice(text: String = "New Choice") -> void:
 	return
 
 func remove_choice() -> void:
-	if _choiceCount == -1:
+	if _choiceCount == 1: # cannot have less than 1 choice
 		return
-	var choice = get_node("choice%d" % _choiceCount)
+	var choice: TextEdit = get_node("choice%d" % _choiceCount)
 	var choiceSlot: int = _choiceCount + SLOT_OFFSET
 	choice_removed.emit(self, choiceSlot)
 	remove_child(choice)
