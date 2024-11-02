@@ -1,6 +1,7 @@
 extends VBoxContainer
 
 @export var _richLabel: RichTextLabel
+const EXAMPLE_PATH: String = "res://addons/dio/example/resource/example.res"
 var _currentNode: String = "node1" # all dialogues start from node1
 var _dialogue: Dictionary = {}
 
@@ -8,7 +9,7 @@ func _ready() -> void:
 	# asserts
 	assert(_richLabel != null, "RichTextLabel is null")
 	# grab _dialogue
-	var graphState: GraphState = ResourceLoader.load("res://addons/dio/example/resource/example.res")
+	var graphState: GraphState = ResourceLoader.load(EXAMPLE_PATH)
 	_dialogue = graphState.get_dialogue()
 	# signals
 	for i in range(get_child_count()):
