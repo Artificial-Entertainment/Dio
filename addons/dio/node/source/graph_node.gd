@@ -9,7 +9,7 @@ signal choice_removed(node: GraphNode, port: int)
 
 const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
 const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
-const SLOT_OFFSET: int = 2 # Offset from other UI elements
+const SLOT_OFFSET: int = 2 # (0 indexed) Offset from other UI elements
 const CHOICE_SIZE: Vector2 = Vector2(0, 35)
 
 var _choiceCount: int = 1
@@ -67,7 +67,7 @@ func set_text(new_text: String) -> void:
 
 func get_choices() -> PackedStringArray:
 	var choices: PackedStringArray = []
-	for i in range(SLOT_OFFSET, get_child_count()):
+	for i in range(SLOT_OFFSET + 1, get_child_count()):
 		var text = get_child(i).get_text()
 		choices.append(text)
 	return choices
