@@ -47,7 +47,6 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 		_fileDialog.process_open_file(data.files[0])
 	return
 
-# Graph
 func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStringArray, pos: Vector2) -> void:
 	var dialogueNode: GraphNode = GRAPH_NODE.instantiate()
 	dialogueNode.set_id(id)

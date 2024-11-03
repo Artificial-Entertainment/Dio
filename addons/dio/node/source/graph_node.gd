@@ -9,10 +9,10 @@ signal choice_removed(node: GraphNode, port: int)
 
 const CLOSE_BUTTON_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/close.tscn")
 const CHOICE_SCENE: PackedScene = preload("res://addons/dio/node/subscenes/choice.tscn")
-const SLOT_OFFSET: int = 2 # (0 indexed) Offset from other UI elements
+const SLOT_OFFSET: int = 3 # 0 indexed
 const CHOICE_SIZE: Vector2 = Vector2(0, 35)
 
-var _choiceCount: int = 1
+var _choiceCount: int = 0
 var _id: int = 0
 
 func _ready() -> void:
@@ -29,19 +29,21 @@ func _ready() -> void:
 	return
 
 func add_choice(text: String = "New Choice") -> void:
-	_choiceCount += 1
 	var choice: TextEdit = CHOICE_SCENE.instantiate()
-	choice.name = "choice%d" % _choiceCount
+	_choiceCount += 1
+	choice.set_name("choice%d" % _choiceCount)
 	choice.set_text(text)
 	add_child(choice)
-	set_slot_enabled_right(_choiceCount + SLOT_OFFSET, true)
+	# sequenced correctly but needs -1
+	set_slot_enabled_right(SLOT_OFFSET + _choiceCount - 1, true)
 	return
 
 func remove_choice() -> void:
+	print(_choiceCount)
 	if _choiceCount == 1: # cannot have less than 1 choice
 		return
 	var choice: TextEdit = get_node("choice%d" % _choiceCount)
-	var choiceSlot: int = _choiceCount + SLOT_OFFSET
+	var choiceSlot: int = SLOT_OFFSET + _choiceCount
 	choice_removed.emit(self, choiceSlot)
 	remove_child(choice)
 	choice.queue_free()
@@ -67,7 +69,7 @@ func set_text(new_text: String) -> void:
 
 func get_choices() -> PackedStringArray:
 	var choices: PackedStringArray = []
-	for i in range(SLOT_OFFSET + 1, get_child_count()):
+	for i in range(SLOT_OFFSET, get_child_count()):
 		var text = get_child(i).get_text()
 		choices.append(text)
 	return choices
@@ -75,6 +77,8 @@ func get_choices() -> PackedStringArray:
 func set_choices(new_choices: PackedStringArray) -> void:
 	for choice in new_choices:
 		add_choice(choice)
+	if !new_choices.size():
+		add_choice("Continue")
 	return
 
 func get_close_button() -> Button:
