@@ -8,6 +8,8 @@ func _ready() -> void:
 	# grab _dialogue
 	var graphState: GraphState = ResourceLoader.load(_examplePath)
 	_dialogue = graphState.get_dialogue()
+	var json_string = JSON.stringify(_dialogue, "  ")  # The second argument adds indentation
+	print(json_string)
 	# signals
 	meta_clicked.connect(on_meta_clicked)
 	show_dialogue(_currentNode)
@@ -18,19 +20,16 @@ func show_dialogue(nodeId: String) -> void:
 	var node: Dictionary = _dialogue[nodeId]
 	append_text("[b]%s[/b]\n" % node["name"])
 	append_text("%s\n\n" % node["text"])
+	print(node["connections"])
 	show_options(node["choices"], node["connections"])
 	return
 
 func show_options(choices: PackedStringArray, connections: Array) -> void:
-	var numChoices: int = choices.size()
-	if numChoices == 0:
-		if connections.size() > 0:
-			append_text("1. [url=continue]Continue[/url]\n")
-		else:
-			append_text("1. [url=end]Exit[/url]\n")
-	else:
-		for i in range(numChoices):
+	if connections.size():
+		for i in range(choices.size()):
 			append_text("%d. [url=%s]%s[/url]\n" % [i + 1, connections[i], choices[i]])
+	else:
+		append_text("1. [url=end]Exit[/url]\n")
 	return
 
 func on_meta_clicked(meta: String) -> void:

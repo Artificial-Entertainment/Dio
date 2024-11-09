@@ -25,14 +25,10 @@ func show_dialogue(nodeId: String) -> void:
 	return
 
 func show_options(choices: PackedStringArray, connections: Array) -> void:
-	var numChoices: int = choices.size()
-	if numChoices == 0:
-		if connections.size() > 0:
-			show_button_options(["Continue"])
-		else:
-			show_button_options(["Exit"])
-	else:
+	if connections.size():
 		show_button_options(choices)
+	else:
+		show_button_options(["Exit"])
 	return
 
 func show_button_options(options: Array) -> void:
