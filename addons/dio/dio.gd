@@ -9,6 +9,10 @@ func _enter_tree() -> void:
 	_graph.hide()
 	return
 
+func _save_external_data() -> void:
+	_graph.autosave()
+	return
+
 func _has_main_screen() -> bool:
 	return true
 

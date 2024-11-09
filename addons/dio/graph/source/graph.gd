@@ -27,8 +27,8 @@ func _ready() -> void:
 		menu.move_child(node, 0)
 	# Connect button signals
 	addBtn.pressed.connect(on_add)
-	saveBtn.pressed.connect(_fileDialog.preset.bind("save"))
-	loadBtn.pressed.connect(_fileDialog.preset.bind("load"))
+	saveBtn.pressed.connect(on_save)
+	loadBtn.pressed.connect(on_load)
 	# Connect graph signals
 	disconnection_request.connect(on_disconnection)
 	connection_request.connect(on_connection)
@@ -37,6 +37,7 @@ func _ready() -> void:
 	# Based on doc recommendations
 	OS.set_low_processor_usage_mode(true)
 	return
+
 
 # Drag and drop GraphState
 func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
@@ -101,6 +102,21 @@ func on_connection(fNode: StringName, fPort: int, tNode: StringName, tPort: int)
 
 func on_disconnection(fNode: StringName, fPort: int, tNode: StringName, tPort: int) -> void:
 	disconnect_node(fNode, fPort, tNode, tPort)
+	return
+
+func autosave() -> void:
+	_fileDialog.save_preset()
+	_fileDialog.process_autosave()
+	return
+
+func on_save() -> void:
+	_fileDialog.save_preset()
+	_fileDialog.popup_centered_ratio(0.65)
+	return
+
+func on_load() -> void:
+	_fileDialog.load_preset()
+	_fileDialog.popup_centered_ratio(0.65)
 	return
 
 func get_id_array() -> Array[int]:
