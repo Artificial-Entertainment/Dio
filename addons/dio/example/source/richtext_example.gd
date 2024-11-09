@@ -1,12 +1,12 @@
 extends RichTextLabel
 
+@export_file("*.res") var _examplePath: String
 var _currentNode: String = "node1" # all dialogues start from node1
 var _dialogue: Dictionary = {}
 
 func _ready() -> void:
-	assert(self != null, "RichTextLabel is null")
 	# grab _dialogue
-	var graphState: GraphState = ResourceLoader.load("res://addons/dio/example/resource/example.res")
+	var graphState: GraphState = ResourceLoader.load(_examplePath)
 	_dialogue = graphState.get_dialogue()
 	# signals
 	meta_clicked.connect(on_meta_clicked)

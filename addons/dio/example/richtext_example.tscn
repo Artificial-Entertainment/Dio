@@ -42,3 +42,4 @@ bbcode_enabled = true
 text = "This is where the dialogue goes "
 scroll_following = true
 script = ExtResource("1_fs2v4")
+_examplePath = "res://addons/dio/saves/example.res"

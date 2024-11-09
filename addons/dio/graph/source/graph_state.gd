@@ -25,7 +25,7 @@ func get_dialogue() -> Dictionary:
 		dialogue[from_node]["connections"].append(to_node)
 	return dialogue
 
-func collect_graph_state(graph: GraphEdit) -> void:
+func collect_graph_state(graph: GraphEdit) -> Error:
 	_nodes.clear()
 	for node in graph.get_children():
 		if node is GraphNode:
@@ -41,7 +41,9 @@ func collect_graph_state(graph: GraphEdit) -> void:
 	_connections = graph.get_connection_list()
 	_currentID = graph.get_current_id()
 	_availableID = graph.get_id_array()
-	return
+	if _nodes.is_empty():
+		return Error.ERR_SKIP # dio state empty | do not save
+	return Error.OK
 
 func apply_graph_state(graph: GraphEdit) -> void:
 	for node in graph.get_children():

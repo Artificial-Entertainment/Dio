@@ -2,7 +2,6 @@
 extends FileDialog
 
 @export var _graph: GraphEdit
-const DEFAULT_SAVE_LOC: String = "res://dio_graph.res"
 var _openFilePath: String = ""
 
 func _ready() -> void:
@@ -30,17 +29,22 @@ func on_file_selected(path: String) -> void:
 
 func external_save() -> void:
 	if _openFilePath.is_empty():
-		save_file(DEFAULT_SAVE_LOC)
+		var saveLoc: String = get_file_save_loc()
+		save_file(saveLoc)
 	else:
 		save_file(_openFilePath)
 	return
 
 func save_file(path: String) -> void:
 	var graphState: GraphState = GraphState.new()
-	graphState.collect_graph_state(_graph)
-	var err: Error = ResourceSaver.save(graphState, path)
-	if err != OK:
-		push_error("Error saving file: " + error_string(err))
+	var graphErr: Error = graphState.collect_graph_state(_graph)
+	if graphErr != OK:
+		return # dio state empty | do not save
+
+	var resErr: Error = ResourceSaver.save(graphState, path)
+	if resErr != OK:
+		push_error("Error saving file: " + error_string(resErr))
+
 	_openFilePath = path
 	return
 
@@ -48,10 +52,20 @@ func load_file(path: String) -> void:
 	var resource: Resource = ResourceLoader.load(path)
 	if resource == null:
 		push_error("Failed to load resource from file: " + path)
-		return
+
 	if !(resource is GraphState):
 		push_error("Loaded resource is not a GraphState: " + path)
-		return
+
 	_openFilePath = path
 	resource.apply_graph_state(_graph)
 	return
+
+func get_file_save_loc() -> String:
+	var saveDir: String = "res://addons/dio/saves/"
+	var dir: DirAccess = DirAccess.open(saveDir)
+	if dir == null: # dir does not exist
+		push_error("save dir missing")
+
+	var saveName: String = "dio%s.res"
+	var count: int = dir.get_files().size() + 1
+	return saveDir + saveName % count

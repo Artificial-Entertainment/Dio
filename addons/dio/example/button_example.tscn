@@ -50,6 +50,7 @@ scroll_following = true
 [node name="buttonContainer" type="VBoxContainer" parent="panle/margin/vbox" node_paths=PackedStringArray("_richLabel")]
 layout_mode = 2
 script = ExtResource("1_ojn41")
+_examplePath = "res://addons/dio/saves/example.res"
 _richLabel = NodePath("../text")
 
 [node name="choice1" type="Button" parent="panle/margin/vbox/buttonContainer"]

@@ -13,8 +13,6 @@ var _availableID: Array[int] = []
 var _currentID: int = 0
 
 func _ready() -> void:
-	# Assert that FileDialog is set
-	assert(_fileDialog != null, "FileDialog is not set")
 	# Instantiate UI elements
 	var saveBtn: Button = SAVE_GRAPH_BUTTON.instantiate()
 	var loadBtn: Button = LOAD_GRAPH_BUTTON.instantiate()
@@ -45,7 +43,7 @@ func _can_drop_data(_pos: Vector2, data: Variant) -> bool:
 
 func _drop_data(_pos: Vector2, data: Variant) -> void:
 	if data.files.size() > 0:
-		_fileDialog.process_open_file(data.files[0])
+		_fileDialog.load_file(data.files[0])
 	return
 
 func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStringArray, pos: Vector2) -> void:

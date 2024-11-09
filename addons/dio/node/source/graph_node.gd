@@ -16,10 +16,6 @@ var _choiceCount: int = 0
 var _id: int = 0
 
 func _ready() -> void:
-	# assert exports
-	assert(_textEdit != null, "TextEdit is not set")
-	assert(_addButton != null, "AddButton is not set")
-	assert(_removeButton != null, "RemoveButton is not set")
 	# adding/removing choices
 	_addButton.pressed.connect(add_choice)
 	_removeButton.pressed.connect(remove_choice)
