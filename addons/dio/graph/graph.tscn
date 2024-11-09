@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cv7ri77tigouw"]
 
 [ext_resource type="Script" path="res://addons/dio/graph/source/graph.gd" id="1_6810e"]
-[ext_resource type="Script" path="res://addons/dio/graph/source/file_dialog.gd" id="2_mdc37"]
+[ext_resource type="Script" path="res://addons/dio/graph/source/dialog.gd" id="2_mdc37"]
 
 [node name="graph" type="GraphEdit" node_paths=PackedStringArray("_fileDialog")]
 anchors_preset = 15
@@ -16,9 +16,9 @@ right_disconnects = true
 show_zoom_label = true
 show_arrange_button = false
 script = ExtResource("1_6810e")
-_fileDialog = NodePath("fileDialog")
+_fileDialog = NodePath("dialog")
 
-[node name="fileDialog" type="FileDialog" parent="." node_paths=PackedStringArray("_graph")]
+[node name="dialog" type="FileDialog" parent="." node_paths=PackedStringArray("_graph")]
 size = Vector2i(303, 180)
 filters = PackedStringArray("*.res")
 script = ExtResource("2_mdc37")

@@ -23,19 +23,19 @@ func load_preset() -> void:
 
 func on_file_selected(path: String) -> void:
 	if file_mode == FILE_MODE_SAVE_FILE:
-		process_save_file(path)
+		save_file(path)
 	elif file_mode == FILE_MODE_OPEN_FILE:
-		process_open_file(path)
+		load_file(path)
 	return
 
-func process_autosave() -> void:
+func external_save() -> void:
 	if _openFilePath.is_empty():
-		process_save_file(DEFAULT_SAVE_LOC)
+		save_file(DEFAULT_SAVE_LOC)
 	else:
-		process_save_file(_openFilePath)
+		save_file(_openFilePath)
 	return
 
-func process_save_file(path: String) -> void:
+func save_file(path: String) -> void:
 	var graphState: GraphState = GraphState.new()
 	graphState.collect_graph_state(_graph)
 	var err: Error = ResourceSaver.save(graphState, path)
@@ -44,7 +44,7 @@ func process_save_file(path: String) -> void:
 	_openFilePath = path
 	return
 
-func process_open_file(path: String) -> void:
+func load_file(path: String) -> void:
 	var resource: Resource = ResourceLoader.load(path)
 	if resource == null:
 		push_error("Failed to load resource from file: " + path)

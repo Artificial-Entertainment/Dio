@@ -106,7 +106,7 @@ func on_disconnection(fNode: StringName, fPort: int, tNode: StringName, tPort: i
 
 func autosave() -> void:
 	_fileDialog.save_preset()
-	_fileDialog.process_autosave()
+	_fileDialog.external_save() # avoid popups (Ctrl + S)
 	return
 
 func on_save() -> void:
