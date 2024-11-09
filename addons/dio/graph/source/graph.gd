@@ -70,13 +70,13 @@ func on_choice_removed(node: GraphNode, port: int) -> void:
 	return
 
 func on_add() -> void:
-	var id: int = get_current_id()
+	var id: int = get_valid_id()
 	var pos: Vector2 = Vector2.ONE * (id % 10 + 1) * 10
 	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
 	return
 
 func on_empty(fNode: StringName, fPort: int, pos: Vector2) -> void:
-	var id: int = get_current_id()
+	var id: int = get_valid_id()
 	var nodeSize: Vector2 = Vector2.UP * GRAPH_NODE_SIZE_Y / 2.0
 	pos += get_scroll_offset() + nodeSize
 	add_graph_node(id, "node%d" % id, "Response Text", [], pos)
@@ -124,12 +124,15 @@ func set_id_array(idArray: Array[int]) -> void:
 	_availableID = idArray
 	return
 
-func get_current_id() -> int:
+func get_valid_id() -> int:
 	if _availableID.size() > 0:
 		return _availableID.pop_front()
 	else:
 		_currentID += 1
 		return _currentID
+
+func get_current_id() -> int:
+	return _currentID
 
 func set_current_id(currentID: int) -> void:
 	_currentID = currentID
