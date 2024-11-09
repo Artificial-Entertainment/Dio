@@ -39,7 +39,6 @@ func add_choice(text: String = "New Choice") -> void:
 	return
 
 func remove_choice() -> void:
-	print(_choiceCount)
 	if _choiceCount == 1: # cannot have less than 1 choice
 		return
 	var choice: TextEdit = get_node("choice%d" % _choiceCount)
