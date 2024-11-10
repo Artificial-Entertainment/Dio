@@ -8,9 +8,6 @@ func _ready() -> void:
 	# grab _dialogue
 	var graphState: GraphState = ResourceLoader.load(_examplePath)
 	_dialogue = graphState.get_dialogue()
-	var json_string = JSON.stringify(_dialogue, "  ")  # The second argument adds indentation
-	print(json_string)
-	# signals
 	meta_clicked.connect(on_meta_clicked)
 	show_dialogue(_currentNode)
 	return
@@ -20,7 +17,6 @@ func show_dialogue(nodeId: String) -> void:
 	var node: Dictionary = _dialogue[nodeId]
 	append_text("[b]%s[/b]\n" % node["name"])
 	append_text("%s\n\n" % node["text"])
-	print(node["connections"])
 	show_options(node["choices"], node["connections"])
 	return
 
