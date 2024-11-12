@@ -51,6 +51,12 @@ func apply_graph_state(graph: GraphEdit) -> void:
 			graph.remove_child(node)
 			node.queue_free()
 
+	for conn in graph.get_connection_list():
+		graph.disconnect_node(
+			conn["from_node"], conn["from_port"],
+			conn["to_node"], conn["to_port"]
+		)
+
 	for nodeInfo in _nodes:
 		graph.add_graph_node(
 			nodeInfo["id"], nodeInfo["name"], nodeInfo["text"], 
