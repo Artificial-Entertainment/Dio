@@ -61,11 +61,13 @@ func load_file(path: String) -> void:
 	return
 
 func get_file_save_loc() -> String:
-	var saveDir: String = "res://addons/dio/saves/"
-	var dir: DirAccess = DirAccess.open(saveDir)
-	if dir == null: # dir does not exist
-		push_error("save dir missing")
+	const SAVE_DIR: String = "res://addons/dio/saves/"
+	const ROOT_DIR: String = "res://" # project root
+
+	var dir: DirAccess = DirAccess.open(SAVE_DIR)
+	if dir == null:
+		dir = DirAccess.open(ROOT_DIR)
 
 	var saveName: String = "dio%s.res"
 	var count: int = dir.get_files().size() + 1
-	return saveDir + saveName % count
+	return SAVE_DIR + saveName % count

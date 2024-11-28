@@ -1,3 +1,3 @@
 /assign @RahovDev 
-/label ~"In Progress" 
+/label ~Feature
 /estimate 1h 
