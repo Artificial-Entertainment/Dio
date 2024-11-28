@@ -102,9 +102,9 @@ func on_disconnection(fNode: StringName, fPort: int, tNode: StringName, tPort: i
 	disconnect_node(fNode, fPort, tNode, tPort)
 	return
 
-func autosave() -> void:
+func external_save() -> void:
 	_fileDialog.save_preset()
-	_fileDialog.external_save() # avoid popups (Ctrl + S)
+	_fileDialog.autosave()
 	return
 
 func on_save() -> void:

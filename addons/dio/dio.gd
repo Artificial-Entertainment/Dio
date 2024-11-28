@@ -10,7 +10,7 @@ func _enter_tree() -> void:
 	return
 
 func _save_external_data() -> void:
-	_graph.autosave()
+	_graph.external_save()
 	return
 
 func _has_main_screen() -> bool:

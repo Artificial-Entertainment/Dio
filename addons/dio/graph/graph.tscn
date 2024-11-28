@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cv7ri77tigouw"]
+[gd_scene load_steps=4 format=3 uid="uid://cv7ri77tigouw"]
 
 [ext_resource type="Script" path="res://addons/dio/graph/source/graph.gd" id="1_6810e"]
 [ext_resource type="Script" path="res://addons/dio/graph/source/dialog.gd" id="2_mdc37"]
+[ext_resource type="Script" path="res://addons/dio/graph/source/save_label.gd" id="3_p84x1"]
 
 [node name="graph" type="GraphEdit" node_paths=PackedStringArray("_fileDialog")]
 anchors_preset = 15
@@ -18,8 +19,21 @@ show_arrange_button = false
 script = ExtResource("1_6810e")
 _fileDialog = NodePath("dialog")
 
-[node name="dialog" type="FileDialog" parent="." node_paths=PackedStringArray("_graph")]
+[node name="dialog" type="FileDialog" parent="." node_paths=PackedStringArray("_graph", "_saveLabel")]
 size = Vector2i(303, 180)
 filters = PackedStringArray("*.res")
 script = ExtResource("2_mdc37")
 _graph = NodePath("..")
+_saveLabel = NodePath("../saveLabel")
+
+[node name="saveLabel" type="Label" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -29.0
+offset_right = 40.0
+offset_bottom = -6.0
+grow_vertical = 0
+script = ExtResource("3_p84x1")
