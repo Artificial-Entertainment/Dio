@@ -1,3 +1,4 @@
+@tool
 extends Label
 
 func write_text(t: String) -> void:
