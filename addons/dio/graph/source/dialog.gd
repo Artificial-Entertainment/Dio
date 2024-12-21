@@ -46,7 +46,7 @@ func save_file(path: String) -> void:
 	var graphState: GraphState = GraphState.new()
 	var graphErr: Error = graphState.collect_graph_state(_graph)
 	if graphErr != OK:
-		return # dio state empty | do not save
+		return # dialogue state empty | do not save
 
 	var resErr: Error = ResourceSaver.save(graphState, path)
 	_saveLabel.write_text("Saved at %s" % path)

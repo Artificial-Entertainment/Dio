@@ -47,17 +47,17 @@ func _drop_data(_pos: Vector2, data: Variant) -> void:
 	return
 
 func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStringArray, pos: Vector2) -> void:
-	var dialogueNode: GraphNode = GRAPH_NODE.instantiate()
-	dialogueNode.set_id(id)
-	dialogueNode.set_text(text)
-	dialogueNode.set_name(nodeName)
-	dialogueNode.set_title(nodeName)
-	dialogueNode.set_choices(choices)
-	dialogueNode.set_position_offset(pos)
-	add_child(dialogueNode)
-	dialogueNode.choice_removed.connect(on_choice_removed)
+	var graphNode: GraphNode = GRAPH_NODE.instantiate()
+	graphNode.set_id(id)
+	graphNode.set_text(text)
+	graphNode.set_name(nodeName)
+	graphNode.set_title(nodeName)
+	graphNode.set_choices(choices)
+	graphNode.set_position_offset(pos)
+	add_child(graphNode)
+	graphNode.choice_removed.connect(on_choice_removed)
 	var n: Array[StringName] = [StringName(nodeName)]
-	var closeButton: Button = dialogueNode.get_close_button()
+	var closeButton: Button = graphNode.get_close_button()
 	closeButton.pressed.connect(on_delete.bind(n))
 	return
 
@@ -65,7 +65,7 @@ func add_graph_node(id: int, nodeName: String, text: String, choices: PackedStri
 func on_choice_removed(node: GraphNode, port: int) -> void:
 	var connections: Array[Dictionary] = get_connection_list()
 	for conn in connections:
-		if conn["from_node"] == node.get_name() and conn["from_port"] == port:
+		if conn["from_node"] == node.get_name() and conn["from_port"] == port: 
 			disconnect_node(conn["from_node"], conn["from_port"], conn["to_node"], conn["to_port"])
 	return
 

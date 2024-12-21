@@ -20,8 +20,7 @@ func _ready() -> void:
 	_addButton.pressed.connect(add_choice)
 	_removeButton.pressed.connect(remove_choice)
 	# adding 'X' button top right
-	var close_button: Button = CLOSE_BUTTON_SCENE.instantiate()
-	get_titlebar_hbox().add_child(close_button)
+	get_titlebar_hbox().add_child(CLOSE_BUTTON_SCENE.instantiate())
 	return
 
 func add_choice(text: String = "New Choice") -> void:
@@ -38,11 +37,10 @@ func remove_choice() -> void:
 	if _choiceCount == 1: # cannot have less than 1 choice
 		return
 	var choice: TextEdit = get_node("choice%d" % _choiceCount)
-	var choiceSlot: int = SLOT_OFFSET + _choiceCount
-	choice_removed.emit(self, choiceSlot)
+	choice_removed.emit(self, _choiceCount - 1)
 	remove_child(choice)
 	choice.queue_free()
-	set_slot_enabled_right(choiceSlot, false)
+	set_slot_enabled_right(SLOT_OFFSET + _choiceCount, false)
 	_choiceCount -= 1
 	# fixing weird panel size issue
 	set_size(get_size() - CHOICE_SIZE)
